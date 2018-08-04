@@ -10,5 +10,6 @@ data class ApiJobData(
         @SerializedName("description") var description: String,
         @SerializedName("company") var company: String,
         @SerializedName("service") var service: String,
-        @SerializedName("url") var url: String
+        @SerializedName("url") var url: String,
+        @SerializedName("salary") var salary: String
 )
