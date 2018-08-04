@@ -2,7 +2,6 @@ package com.fehtystudio.jobos3.Activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import com.fehtystudio.jobos3.Adapter.RecyclerViewAdapter
@@ -24,12 +23,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
         getJobData()
     }
 
-    private fun getJobData() {
+    fun getJobData() {
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://78.140.221.46")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -47,35 +45,33 @@ class MainActivity : AppCompatActivity() {
 
                 var checkBoxState = false
                 checkBox.setOnClickListener {
-                    if (!checkBoxState) {
+                    if (checkBoxState == false) {
                         recyclerView.removeAllViewsInLayout()
                         adapter.salaryFilter()
                         checkBoxState = true
-                    } else if (checkBoxState) {
-                        getJobData()
+                    } else if (checkBoxState == true) {
+                        // getJobData()
+                        adapter.setDefaultList()
                         checkBoxState = false
                     }
                 }
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        return true
+                        return false
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        if (newText!!.isEmpty()) getJobData()
-                        else {
-                            recyclerView.removeAllViewsInLayout()
-                            adapter.wordsFilter(newText.toString())
-                        }
+                        recyclerView.removeAllViewsInLayout()
+                        adapter.wordsFilter(newText!!)
                         return true
                     }
                 })
 
-                searchView.setOnCloseListener {
-                    getJobData()
-                    true
-                }
+//                searchView.setOnCloseListener {
+//                  //  getJobData()
+//                    false
+//                }
             }
 
             override fun onFailure(call: Call<List<ApiJobData>>?, t: Throwable?) = Unit
