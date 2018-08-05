@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_main_search_view_width">0dp</dimen>
+    <dimen name="activity_main_search_view_margin_end">8dp</dimen>
+    <dimen name="activity_main_search_view_margin_start">8dp</dimen>
+    <dimen name="activity_main_search_view_margin_top">8dp</dimen>
+    <dimen name="activity_main_check_box_margin_bottom">8dp</dimen>
+    <dimen name="activity_main_check_box_margin_end">8dp</dimen>
+    <dimen name="activity_main_check_box_margin_top">8dp</dimen>
+    <dimen name="activity_main_recycler_view_width">0dp</dimen>
+    <dimen name="activity_main_recycler_view_height">0dp</dimen>
+    <dimen name="activity_main_recycler_view_margin_end">8dp</dimen>
+    <dimen name="activity_main_recycler_view_margin_start">8dp</dimen>
+    <dimen name="activity_main_recycler_view_margin_top">8dp</dimen>
+    <dimen name="template_for_item_card_view_margin_bottom">8dp</dimen>
+    <dimen name="template_for_item_card_view_margin_end">8dp</dimen>
+    <dimen name="template_for_item_card_view_margin_start">8dp</dimen>
+    <dimen name="template_for_item_card_view_margin_top">8dp</dimen>
+    <dimen name="template_for_item_title_margin_start">8dp</dimen>
+    <dimen name="template_for_item_title_margin_top">8dp</dimen>
+    <dimen name="template_for_item_title_text_size">18sp</dimen>
+    <dimen name="template_for_item_salary_margin_end">8dp</dimen>
+    <dimen name="template_for_item_salary_text_size">18sp</dimen>
+    <dimen name="template_for_item_description_margin_bottom">8dp</dimen>
+    <dimen name="template_for_item_description_margin_end">8dp</dimen>
+    <dimen name="template_for_item_description_margin_start">8dp</dimen>
+    <dimen name="template_for_item_description_margin_top">8dp</dimen>
+</resources>

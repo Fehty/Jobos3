@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<ApiJobData>>?, response: Response<List<ApiJobData>>?) {
                 val adapter = RecyclerViewAdapter(this@MainActivity)
                 for (i in 0 until response!!.body()!!.size) {
-                    val response = response.body()!![i]
-                    adapter.addItem(JobData(response.title, response.description, response.url, response.salary))
+                    val responseData = response.body()!![i]
+                    adapter.addItem(JobData(responseData.title, responseData.description, responseData.url, responseData.salary))
                 }
                 recyclerView.adapter = adapter
 

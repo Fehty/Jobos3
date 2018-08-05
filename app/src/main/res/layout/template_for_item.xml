@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginBottom="@dimen/template_for_item_card_view_margin_bottom"
+    android:layout_marginEnd="@dimen/template_for_item_card_view_margin_end"
+    android:layout_marginStart="@dimen/template_for_item_card_view_margin_start"
+    android:layout_marginTop="@dimen/template_for_item_card_view_margin_top">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,41 +17,41 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/template_for_item_title_margin_start"
+            android:layout_marginTop="@dimen/template_for_item_title_margin_top"
             android:ems="12"
-            android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textSize="@dimen/template_for_item_title_text_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Title" />
+            tools:text="@string/template_for_item_title_tools_text" />
 
         <TextView
             android:id="@+id/salary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textColor="#bb4d00"
-            android:textSize="18sp"
+            android:layout_marginEnd="@dimen/template_for_item_salary_margin_end"
+            android:textColor="@color/template_for_item_salary_text_color"
+            android:textSize="@dimen/template_for_item_salary_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title"
-            tools:text="356264 £" />
+            tools:text="@string/template_for_item_salary_tools_text" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/template_for_item_description_margin_bottom"
+            android:layout_marginEnd="@dimen/template_for_item_description_margin_end"
+            android:layout_marginStart="@dimen/template_for_item_description_margin_start"
+            android:layout_marginTop="@dimen/template_for_item_description_margin_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="Description" />
+            tools:text="@string/template_for_item_description_tools_text" />
     </android.support.constraint.ConstraintLayout>
+
 </android.support.v7.widget.CardView>
