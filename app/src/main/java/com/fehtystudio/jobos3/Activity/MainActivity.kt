@@ -21,13 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         getJobData()
     }
 
-    fun getJobData() {
+    private fun getJobData() {
+
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://78.140.221.46")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -45,13 +44,12 @@ class MainActivity : AppCompatActivity() {
 
                 var checkBoxState = false
                 checkBox.setOnClickListener {
-                    if (checkBoxState == false) {
-                        recyclerView.removeAllViewsInLayout()
-                        adapter.salaryFilter()
+                    if (!checkBoxState) {
+                        adapter.salaryFilter(newTextFilterChange, true)
                         checkBoxState = true
-                    } else if (checkBoxState == true) {
-                        // getJobData()
-                        adapter.setDefaultList()
+                    } else if (checkBoxState) {
+                        if (newTextFilterChange.isNotEmpty()) adapter.salaryFilter(newTextFilterChange, false)
+                        else adapter.setDefaultList()
                         checkBoxState = false
                     }
                 }
@@ -63,18 +61,17 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onQueryTextChange(newText: String?): Boolean {
                         recyclerView.removeAllViewsInLayout()
-                        adapter.wordsFilter(newText!!)
+                        newTextFilterChange = newText!!
+                        adapter.wordsFilter(newText)
                         return true
                     }
                 })
-
-//                searchView.setOnCloseListener {
-//                  //  getJobData()
-//                    false
-//                }
             }
 
             override fun onFailure(call: Call<List<ApiJobData>>?, t: Throwable?) = Unit
         })
     }
+
+    var newTextFilterChange = ""
 }
+
