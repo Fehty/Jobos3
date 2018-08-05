@@ -14,7 +14,8 @@ import com.fehtystudio.jobos3.R
 
 class RecyclerViewAdapter(var context: MainActivity?, var list: MutableList<JobData>? = mutableListOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    var listCopy = mutableListOf<JobData>()
+    private var listCopy = mutableListOf<JobData>()
+    private var salaryFilterState = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.template_for_item, parent, false)
@@ -29,39 +30,55 @@ class RecyclerViewAdapter(var context: MainActivity?, var list: MutableList<JobD
         return list!!.size
     }
 
-//    fun salaryFilter() {
-//        val secondArray = mutableListOf<JobData>()
-//        list!!.forEach { if (!it.salary.equals("None")) secondArray.add(JobData(it.title, it.description, it.link, it.salary)) }
-//        list!!.clear()
-//        secondArray.forEach { addItem(JobData(it.title, it.description, it.link, it.salary)) }
-//    }
-
     fun setDefaultList() {
+        list!!.clear()
         listCopy.forEach {
             list!!.add(JobData(it.title, it.description, it.link, it.salary))
         }
         notifyDataSetChanged()
+        salaryFilterState = false
     }
 
-    fun salaryFilter() {
-        list!!.clear()
-        listCopy.forEach {
-            if (!it.salary!!.contains("None")) {
-                list!!.add(JobData(it.title, it.description, it.link, it.salary))
+    fun salaryFilter(currentText: String, checkBoxState: Boolean) {
+        if (currentText.isNotEmpty()) {
+            if (checkBoxState == true) {
+                salaryFilterState = true
+                wordsFilter(currentText)
+            } else {
+                salaryFilterState = false
+                wordsFilter(currentText)
             }
+        } else {
+            list!!.clear()
+            listCopy.forEach {
+                if (!it.salary!!.contains("None")) {
+                    list!!.add(JobData(it.title, it.description, it.link, it.salary))
+                }
+            }
+            notifyDataSetChanged()
         }
-        notifyDataSetChanged()
     }
 
     fun wordsFilter(textItem: String) {
-        list!!.clear()
-        val text = textItem.toLowerCase()
-        listCopy.forEach {
-            if (it.title!!.toLowerCase().contains(text) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text)) {
-                list!!.add(JobData(it.title, it.description, it.link, it.salary))
+        if (salaryFilterState == true) {
+            list!!.clear()
+            val text = textItem.toLowerCase()
+            for (i in 0 until listCopy.size) {
+                if (!listCopy[i].salary!!.contains("None") and (listCopy[i].title!!.toLowerCase().contains(text) or listCopy[i].description!!.toLowerCase().contains(text) or listCopy[i].salary!!.toLowerCase().contains(text))) {
+                    list!!.add(JobData(listCopy[i].title, listCopy[i].description, listCopy[i].link, listCopy[i].salary))
+                }
             }
+            notifyDataSetChanged()
+        } else {
+            list!!.clear()
+            val text = textItem.toLowerCase()
+            listCopy.forEach {
+                if (it.title!!.toLowerCase().contains(text) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text)) {
+                    list!!.add(JobData(it.title, it.description, it.link, it.salary))
+                }
+            }
+            notifyDataSetChanged()
         }
-        notifyDataSetChanged()
     }
 
     fun addItem(item: JobData) {
@@ -79,7 +96,8 @@ class RecyclerViewAdapter(var context: MainActivity?, var list: MutableList<JobD
         @SuppressLint("SetTextI18n")
         fun bind(jobData: JobData) {
             title.text = jobData.title
-            salary.text = jobData.salary + " £"
+            if (jobData.salary != "None") salary.text = jobData.salary + " £"
+            else salary.text = jobData.salary
             description.text = jobData.description
 
             title.setOnClickListener {
