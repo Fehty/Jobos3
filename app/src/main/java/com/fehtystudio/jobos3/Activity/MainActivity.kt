@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import android.support.v7.widget.SearchView
 import com.fehtystudio.jobos3.Adapter.RecyclerViewAdapter
 import com.fehtystudio.jobos3.Data.ApiJobData
 import com.fehtystudio.jobos3.Data.JobData
@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
         getJobData()
     }
 
@@ -35,23 +38,47 @@ class MainActivity : AppCompatActivity() {
 
         retrofit.getJobData().enqueue(object : Callback<List<ApiJobData>> {
             override fun onResponse(call: Call<List<ApiJobData>>?, response: Response<List<ApiJobData>>?) {
-
-                val list = mutableListOf<JobData>()
-
+                val adapter = RecyclerViewAdapter(this@MainActivity)
                 for (i in 0 until response!!.body()!!.size) {
                     val response = response.body()!![i]
-                    list.add(JobData(response.title, response.description, response.url))
+                    adapter.addItem(JobData(response.title, response.description, response.url, response.salary))
+                }
+                recyclerView.adapter = adapter
+
+                var checkBoxState = false
+                checkBox.setOnClickListener {
+                    if (!checkBoxState) {
+                        recyclerView.removeAllViewsInLayout()
+                        adapter.salaryFilter()
+                        checkBoxState = true
+                    } else if (checkBoxState) {
+                        getJobData()
+                        checkBoxState = false
+                    }
                 }
 
-                val adapter = RecyclerViewAdapter(this@MainActivity, list)
-                recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                recyclerView.addItemDecoration(DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL))
-                recyclerView.adapter = adapter
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        if (newText!!.isEmpty()) getJobData()
+                        else {
+                            recyclerView.removeAllViewsInLayout()
+                            adapter.wordsFilter(newText.toString())
+                        }
+                        return true
+                    }
+                })
+
+                searchView.setOnCloseListener {
+                    getJobData()
+                    true
+                }
             }
 
-            override fun onFailure(call: Call<List<ApiJobData>>?, t: Throwable?) {
-                Log.e("#*#*#*", "onFailure", t)
-            }
+            override fun onFailure(call: Call<List<ApiJobData>>?, t: Throwable?) = Unit
         })
     }
 }
