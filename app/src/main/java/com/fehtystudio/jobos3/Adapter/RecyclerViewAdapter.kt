@@ -12,7 +12,7 @@ import com.fehtystudio.jobos3.Activity.MainActivity
 import com.fehtystudio.jobos3.Data.JobData
 import com.fehtystudio.jobos3.R
 
-class RecyclerViewAdapter(var context: MainActivity?, var list: MutableList<JobData>? = mutableListOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(var context: MainActivity?, private var list: MutableList<JobData>? = mutableListOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private var listCopy = mutableListOf<JobData>()
     private var salaryFilterState = false
@@ -41,7 +41,7 @@ class RecyclerViewAdapter(var context: MainActivity?, var list: MutableList<JobD
 
     fun salaryFilter(currentText: String, checkBoxState: Boolean) {
         if (currentText.isNotEmpty()) {
-            if (checkBoxState == true) {
+            if (checkBoxState) {
                 salaryFilterState = true
                 wordsFilter(currentText)
             } else {
@@ -60,7 +60,7 @@ class RecyclerViewAdapter(var context: MainActivity?, var list: MutableList<JobD
     }
 
     fun wordsFilter(textItem: String) {
-        if (salaryFilterState == true) {
+        if (salaryFilterState) {
             list!!.clear()
             val text = textItem.toLowerCase()
             for (i in 0 until listCopy.size) {

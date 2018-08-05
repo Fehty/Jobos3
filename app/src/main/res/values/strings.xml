@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Jobos3</string>
+    <string name="activity_main_check_box_text">Only with payment</string>
+    <string name="template_for_item_title_tools_text">Title</string>
+    <string name="template_for_item_salary_tools_text">356264 £</string>
+    <string name="template_for_item_description_tools_text">Description</string>
 </resources>

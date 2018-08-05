@@ -3,4 +3,8 @@
     <color name="colorPrimary">#ff9800</color>
     <color name="colorPrimaryDark">#c66900</color>
     <color name="colorAccent">#f57c00</color>
+    <color name="activity_main_main_constraint_background">#faf8fb</color>
+    <color name="activity_main_check_box_text_color">#ff5722</color>
+    <color name="activity_main_recycler_view_background">#faf8fb</color>
+    <color name="template_for_item_salary_text_color">#bb4d00</color>
 </resources>
