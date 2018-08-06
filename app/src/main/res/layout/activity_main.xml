@@ -11,10 +11,10 @@
         android:id="@+id/searchView"
         android:layout_width="@dimen/activity_main_search_view_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_main_search_view_margin_end"
-        android:layout_marginStart="@dimen/activity_main_search_view_margin_start"
         android:layout_marginTop="@dimen/activity_main_search_view_margin_top"
+        android:focusable="false"
         android:inputType="textPersonName"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toStartOf="@+id/checkBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,14 +23,12 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_main_check_box_margin_bottom"
         android:layout_marginEnd="@dimen/activity_main_check_box_margin_end"
-        android:layout_marginTop="@dimen/activity_main_check_box_margin_top"
         android:text="@string/activity_main_check_box_text"
         android:textColor="@color/activity_main_check_box_text_color"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintTop_toTopOf="@+id/searchView" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

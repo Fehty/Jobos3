@@ -41,15 +41,16 @@
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/template_for_item_description_width"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/template_for_item_description_margin_bottom"
             android:layout_marginEnd="@dimen/template_for_item_description_margin_end"
             android:layout_marginStart="@dimen/template_for_item_description_margin_start"
             android:layout_marginTop="@dimen/template_for_item_description_margin_top"
+            android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="@string/template_for_item_description_tools_text" />
     </android.support.constraint.ConstraintLayout>

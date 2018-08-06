@@ -5,8 +5,6 @@
     <dimen name="activity_main_search_view_margin_start">8dp</dimen>
     <dimen name="activity_main_search_view_margin_top">8dp</dimen>
     <dimen name="activity_main_check_box_margin_bottom">8dp</dimen>
-    <dimen name="activity_main_check_box_margin_end">8dp</dimen>
-    <dimen name="activity_main_check_box_margin_top">8dp</dimen>
     <dimen name="activity_main_recycler_view_width">0dp</dimen>
     <dimen name="activity_main_recycler_view_height">0dp</dimen>
     <dimen name="activity_main_recycler_view_margin_end">8dp</dimen>
@@ -25,4 +23,6 @@
     <dimen name="template_for_item_description_margin_end">8dp</dimen>
     <dimen name="template_for_item_description_margin_start">8dp</dimen>
     <dimen name="template_for_item_description_margin_top">8dp</dimen>
+    <dimen name="template_for_item_description_width">0dp</dimen>
+    <dimen name="activity_main_check_box_margin_end">16dp</dimen>
 </resources>

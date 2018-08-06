@@ -35,22 +35,23 @@ class MainActivity : AppCompatActivity() {
 
         retrofit.getJobData().enqueue(object : Callback<List<ApiJobData>> {
             override fun onResponse(call: Call<List<ApiJobData>>?, response: Response<List<ApiJobData>>?) {
+
                 val adapter = RecyclerViewAdapter(this@MainActivity)
+
                 for (i in 0 until response!!.body()!!.size) {
                     val responseData = response.body()!![i]
                     adapter.addItem(JobData(responseData.title, responseData.description, responseData.url, responseData.salary))
                 }
+
                 recyclerView.adapter = adapter
 
-                var checkBoxState = false
                 checkBox.setOnClickListener {
                     if (!checkBoxState) {
-                        adapter.salaryFilter(newTextFilterChange, true)
                         checkBoxState = true
+                        adapter.salaryFilter(checkBoxState, currentText)
                     } else if (checkBoxState) {
-                        if (newTextFilterChange.isNotEmpty()) adapter.salaryFilter(newTextFilterChange, false)
-                        else adapter.setDefaultList()
                         checkBoxState = false
+                        adapter.salaryFilter(checkBoxState, currentText)
                     }
                 }
 
@@ -61,8 +62,8 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onQueryTextChange(newText: String?): Boolean {
                         recyclerView.removeAllViewsInLayout()
-                        newTextFilterChange = newText!!
-                        adapter.wordsFilter(newText)
+                        currentText = newText!!
+                        adapter.salaryFilter(checkBoxState, currentText)
                         return true
                     }
                 })
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    var newTextFilterChange = ""
+    var currentText = ""
+    var checkBoxState = false
 }
 
