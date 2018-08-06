@@ -15,7 +15,6 @@ import com.fehtystudio.jobos3.R
 class RecyclerViewAdapter(var context: MainActivity?, private var list: MutableList<JobData>? = mutableListOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private var listCopy = mutableListOf<JobData>()
-    private var salaryFilterState = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.template_for_item, parent, false)
@@ -30,55 +29,26 @@ class RecyclerViewAdapter(var context: MainActivity?, private var list: MutableL
         return list!!.size
     }
 
-    fun setDefaultList() {
+    fun salaryFilter(checkBoxState: Boolean, currentText: String) {
         list!!.clear()
-        listCopy.forEach {
-            list!!.add(JobData(it.title, it.description, it.link, it.salary))
+        val text = currentText.toLowerCase()
+        when (checkBoxState) {
+            false -> {
+                listCopy.forEach {
+                    if (it.title!!.toLowerCase().contains(text) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text)) {
+                        list!!.add(JobData(it.title, it.description, it.link, it.salary))
+                    }
+                }
+            }
+            true -> {
+                listCopy.forEach {
+                    if (!it.salary!!.contains("None") and (it.title!!.toLowerCase().contains(currentText) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text))) {
+                        list!!.add(JobData(it.title, it.description, it.link, it.salary))
+                    }
+                }
+            }
         }
         notifyDataSetChanged()
-        salaryFilterState = false
-    }
-
-    fun salaryFilter(currentText: String, checkBoxState: Boolean) {
-        if (currentText.isNotEmpty()) {
-            if (checkBoxState) {
-                salaryFilterState = true
-                wordsFilter(currentText)
-            } else {
-                salaryFilterState = false
-                wordsFilter(currentText)
-            }
-        } else {
-            list!!.clear()
-            listCopy.forEach {
-                if (!it.salary!!.contains("None")) {
-                    list!!.add(JobData(it.title, it.description, it.link, it.salary))
-                }
-            }
-            notifyDataSetChanged()
-        }
-    }
-
-    fun wordsFilter(textItem: String) {
-        if (salaryFilterState) {
-            list!!.clear()
-            val text = textItem.toLowerCase()
-            for (i in 0 until listCopy.size) {
-                if (!listCopy[i].salary!!.contains("None") and (listCopy[i].title!!.toLowerCase().contains(text) or listCopy[i].description!!.toLowerCase().contains(text) or listCopy[i].salary!!.toLowerCase().contains(text))) {
-                    list!!.add(JobData(listCopy[i].title, listCopy[i].description, listCopy[i].link, listCopy[i].salary))
-                }
-            }
-            notifyDataSetChanged()
-        } else {
-            list!!.clear()
-            val text = textItem.toLowerCase()
-            listCopy.forEach {
-                if (it.title!!.toLowerCase().contains(text) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text)) {
-                    list!!.add(JobData(it.title, it.description, it.link, it.salary))
-                }
-            }
-            notifyDataSetChanged()
-        }
     }
 
     fun addItem(item: JobData) {
