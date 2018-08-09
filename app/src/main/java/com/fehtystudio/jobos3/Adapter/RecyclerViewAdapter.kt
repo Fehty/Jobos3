@@ -42,7 +42,7 @@ class RecyclerViewAdapter(var context: MainActivity?, private var list: MutableL
             }
             true -> {
                 listCopy.forEach {
-                    if (!it.salary!!.contains("None") and (it.title!!.toLowerCase().contains(currentText) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text))) {
+                    if (!it.salary.equals("0") and (it.title!!.toLowerCase().contains(text) or it.description!!.toLowerCase().contains(text) or it.salary!!.toLowerCase().contains(text))) {
                         list!!.add(JobData(it.title, it.description, it.link, it.salary))
                     }
                 }
@@ -66,8 +66,8 @@ class RecyclerViewAdapter(var context: MainActivity?, private var list: MutableL
         @SuppressLint("SetTextI18n")
         fun bind(jobData: JobData) {
             title.text = jobData.title
-            if (jobData.salary != "None") salary.text = jobData.salary + " £"
-            else salary.text = jobData.salary
+            if (jobData.salary != "0") salary.text = jobData.salary + " £"
+            else salary.text = "Not specified"
             description.text = jobData.description
 
             title.setOnClickListener {
