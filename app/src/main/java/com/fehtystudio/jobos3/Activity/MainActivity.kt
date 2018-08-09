@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun getJobData() {
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://78.140.221.46")
+                .baseUrl("http://78.140.221.46:7777")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyInterface::class.java)
